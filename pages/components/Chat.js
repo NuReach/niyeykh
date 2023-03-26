@@ -46,8 +46,6 @@ function Chat({ socket, username, room }) {
     fectData();
   }, [socket]);
 
-  console.log(chat);
-
   return (
     <div className="chat-window">
       <div className="chat-header">
@@ -56,6 +54,8 @@ function Chat({ socket, username, room }) {
       <div className="chat-body">
         <ScrollToBottom className="message-container">
           {chat.map((item, i) => {
+            const time = new Date(item.createdAt).toLocaleTimeString();
+            const date = new Date(item.createdAt).toLocaleDateString();
             return (
               <div key={i}>
                 <div
@@ -65,6 +65,14 @@ function Chat({ socket, username, room }) {
                   <div>
                     <div className="message-content">
                       <p>{item.message}</p>
+                    </div>
+                    <div className="message-meta">
+                      <p id="time" className="text-black">
+                        {time}
+                      </p>
+                      <p id="author" className="text-black">
+                        {item.userName}
+                      </p>
                     </div>
                   </div>
                 </div>

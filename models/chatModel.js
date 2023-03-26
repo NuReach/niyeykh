@@ -5,6 +5,7 @@ const chatSchema = new Schema(
     room: String,
     userName: String,
     message: String,
+    time: String | Number | Date,
   },
   {
     timestamps: true,

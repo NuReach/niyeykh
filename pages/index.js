@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import data from "./utils/data";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
   return (
     <>
       <Head>
@@ -27,28 +29,38 @@ export default function Home() {
               type="text"
               name=""
               id=""
-              placeholder="Search..."
+              placeholder="Search location..."
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="">&#9658;</button>
           </div>
         </div>
         <div className=" mt-9 flex flex-wrap justify-center items-center ">
-          {data.map((school, i) => {
-            return (
-              <div
-                key={i}
-                className=" border-2 rounded-lg w-80 h-96 mx-9 mt-6 p-6"
-              >
-                <Link href={`/school/${school.schoolName}`}>
-                  <img src={school.img} alt="" className=" w-full h-60" />
-                  <p className=" uppercase text-2xl font-mono">
-                    {" "}
-                    {school.schoolName}
-                  </p>
-                </Link>
-              </div>
-            );
-          })}
+          {data
+            .filter((item) => {
+              if (search === "") {
+                return item;
+              } else if (
+                item.schoolName.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return item;
+              }
+            })
+            .map((school, i) => {
+              return (
+                <div
+                  key={i}
+                  className=" border-2 rounded-lg w-80 h-96 mx-9 mt-6 p-6"
+                >
+                  <Link href={`/school/${school.schoolName}`}>
+                    <img src={school.img} alt="" className=" w-full h-60" />
+                    <p className=" uppercase text-2xl font-mono">
+                      {" "}
+                      {school.schoolName}
+                    </p>
+                  </Link>
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

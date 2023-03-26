@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     room: req.body.room,
     userName: req.body.username,
     message: req.body.currentMessage,
+    time: req.body.time,
   });
   await newChat.save();
   res.send(newChat);
